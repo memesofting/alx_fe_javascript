@@ -7,11 +7,12 @@ const quoteCategory = document.createElement('input');
 const addQuoteButton = document.createElement('button');
 
 function showRandomQuote() {
-    const randomQuote = `${quoteTxt.value} - ${quoteCategory.value}`;
-    console.log(randomQuote);
     const quoteList = document.getElementById('quoteList');
+    const randomIndex = Math.floor(Math.random() * quoteObj.length);
+    const selected = quoteObj[randomIndex];
+
     const quote = document.createElement('li');
-    quote.textContent = randomQuote;
+    quote.textContent = `${selected.quoteText} - ${selected.Category}`;
     quoteList.appendChild(quote);
 }
 
@@ -34,3 +35,12 @@ function createAddQuoteForm() {
 }
 
 createQuoteButton.addEventListener('click', createAddQuoteForm);
+
+addQuoteButton.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const newQuote = {
+        quoteText: quoteTxt.value.trim(),
+        Category: quoteCategory.value.trim(), 
+    }
+})

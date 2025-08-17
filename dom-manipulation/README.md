@@ -1,5 +1,5 @@
 # Javascript dom manipulatio
 
-## Content generation web app
+## Quote Chef
 
-- Web application that dynamically generates content based on user inputs and interactions
+- A Dynamic Quote Generator that displays different quotes based on user-selected categories.

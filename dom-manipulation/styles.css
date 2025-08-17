@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: blueviolet;
+    margin-right: auto;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+}
+
+a {
+    text-decoration: none;
+    background-color: salmon;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.container {
+    margin: 20px 100px;
+}
+
+#newQuote {
+    border: none;
+    background-color: aquamarine;
+    padding: 10px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}

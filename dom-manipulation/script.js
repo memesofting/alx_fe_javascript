@@ -1,12 +1,12 @@
 const quoteObj = [{"quoteText": 'life is good', "Category": 'life'}];
-const showQuoteButton = document.getElementById('newQuote');
+const showQuoteButton = document.getElementById('showNewQuote');
 const createQuoteButton = document.getElementById('createQuote')
 
 const quoteTxt = document.createElement('input');
 const quoteCategory = document.createElement('input');
 const addQuoteButton = document.createElement('button');
 
-function showRandomQuote() {
+function displayRandomQuote() {
     const quoteList = document.getElementById('quoteList');
     const randomIndex = Math.floor(Math.random() * quoteObj.length);
     const selected = quoteObj[randomIndex];
@@ -16,7 +16,7 @@ function showRandomQuote() {
     quoteList.appendChild(quote);
 }
 
-showQuoteButton.addEventListener('click', showRandomQuote);
+showQuoteButton.addEventListener('click', displayRandomQuote);
 
 function createAddQuoteForm() {
     const addQuoteForm = document.getElementById('addQuoteForm');
@@ -36,11 +36,22 @@ function createAddQuoteForm() {
 
 createQuoteButton.addEventListener('click', createAddQuoteForm);
 
-addQuoteButton.addEventListener('click', function(e) {
+function addQuote(e) {
     e.preventDefault();
-
     const newQuote = {
         quoteText: quoteTxt.value.trim(),
         Category: quoteCategory.value.trim(), 
     }
-})
+    
+    if (!newQuote.quoteText || !newQuote.Category) {
+        alert('Quote and category cannot be empty');
+        return
+    }
+    
+    quoteObj.push(newQuote);
+    
+    quoteTxt.value = '';
+    quoteCategory.value = '';
+}
+
+addQuoteButton.addEventListener('click', addQuote);

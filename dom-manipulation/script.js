@@ -6,17 +6,17 @@ const quoteTxt = document.createElement('input');
 const quoteCategory = document.createElement('input');
 const addQuoteButton = document.createElement('button');
 
-function displayRandomQuote() {
+function showRandomQuote() {
     const quoteList = document.getElementById('quoteList');
     const randomIndex = Math.floor(Math.random() * quoteObj.length);
     const selected = quoteObj[randomIndex];
 
     const quote = document.createElement('li');
-    quote.textContent = `${selected.quoteText} - ${selected.Category}`;
+    quote.innerHTML = `${selected.quoteText} - ${selected.Category}`;
     quoteList.appendChild(quote);
 }
 
-showQuoteButton.addEventListener('click', displayRandomQuote);
+showQuoteButton.addEventListener('click', showRandomQuote);
 
 function createAddQuoteForm() {
     const addQuoteForm = document.getElementById('addQuoteForm');

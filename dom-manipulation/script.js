@@ -1,4 +1,6 @@
-const quoteObj = [{"quoteText": 'life is good', "Category": 'life'}];
+const defaultQuotes = [{quoteText: 'life is good', Category: 'life'}];
+const quotes = JSON.parse(localStorage.getItem('quotes')) || defaultQuotes;
+
 const showQuoteButton = document.getElementById('showNewQuote');
 const createQuoteButton = document.getElementById('createQuote')
 
@@ -6,10 +8,12 @@ const quoteTxt = document.createElement('input');
 const quoteCategory = document.createElement('input');
 const addQuoteButton = document.createElement('button');
 
+const exportButton = document.getElementById('exportQuotes');
+
 function showRandomQuote() {
     const quoteList = document.getElementById('quoteList');
-    const randomIndex = Math.floor(Math.random() * quoteObj.length);
-    const selected = quoteObj[randomIndex];
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const selected = quotes[randomIndex];
 
     const quote = document.createElement('li');
     quote.innerHTML = `${selected.quoteText} - ${selected.Category}`;
@@ -48,10 +52,53 @@ function addQuote(e) {
         return
     }
     
-    quoteObj.push(newQuote);
+    quotes.push(newQuote);
+    
+    // get existing quotes
+    const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || defaultQuotes;
+    storedQuotes.push(newQuote);
+
+    const quotesJson = JSON.stringify(storedQuotes);
+    localStorage.setItem('quotes', quotesJson);
+
+    console.log(quotes);
+    console.log(quotesJson);
     
     quoteTxt.value = '';
     quoteCategory.value = '';
 }
 
 addQuoteButton.addEventListener('click', addQuote);
+
+function exportQuote() {
+    const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || defaultQuotes;
+
+    const quotesJson = JSON.stringify(storedQuotes, null, 2);
+
+    const quoteBlob = new Blob([quotesJson], {type: 'application/json'});
+    const quoteFileUrl = URL.createObjectURL(quoteBlob);
+
+    const a = document.createElement('a');
+    a.href = quoteFileUrl;
+    a.download = 'quotes.json';
+    document.body.appendChild(a)
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(quoteFileUrl);
+}
+
+exportButton.addEventListener('click', exportQuote);
+
+function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+    fileReader.onload = function(event) {
+        const importedQuotes = JSON.parse(event.target.result);
+        const existingQuotes = JSON.parse(localStorage.getItem('quotes')) || defaultQuotes;
+        const allQuotes = [...existingQuotes, ...importedQuotes];
+        localStorage.setItem('quotes', JSON.stringify(allQuotes));
+
+        alert('Quotes imported successfully!');
+    };
+    fileReader.readAsText(event.target.files[0]);
+  }

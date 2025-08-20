@@ -70,7 +70,7 @@ function addQuote(e) {
 
 addQuoteButton.addEventListener('click', addQuote);
 
-function exportQuote() {
+function exportToJsonFile() {
     const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || defaultQuotes;
 
     const quotesJson = JSON.stringify(storedQuotes, null, 2);
@@ -88,7 +88,7 @@ function exportQuote() {
     URL.revokeObjectURL(quoteFileUrl);
 }
 
-exportButton.addEventListener('click', exportQuote);
+exportButton.addEventListener('click', exportToJsonFile);
 
 function importFromJsonFile(event) {
     const fileReader = new FileReader();

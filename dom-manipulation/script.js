@@ -15,6 +15,8 @@ const exportButton = document.getElementById('exportQuotes');
 function showRandomQuote() {
     const quoteList = document.getElementById('quoteList');
     const randomIndex = Math.floor(Math.random() * quotes.length);
+
+    quoteList.innerHTML = '';
     const selected = quotes[randomIndex];
 
     const quote = document.createElement('li');

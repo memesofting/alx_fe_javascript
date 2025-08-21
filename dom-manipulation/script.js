@@ -8,16 +8,21 @@ const quoteTxt = document.createElement('input');
 const quoteCategory = document.createElement('input');
 const addQuoteButton = document.createElement('button');
 
+const filter = document.getElementById('categoryFilter');
+
 const exportButton = document.getElementById('exportQuotes');
 
 function showRandomQuote() {
     const quoteList = document.getElementById('quoteList');
+    // const filteredCat = filter.value;
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const selected = quotes[randomIndex];
 
     const quote = document.createElement('li');
     quote.innerHTML = `${selected.quoteText} - ${selected.Category}`;
     quoteList.appendChild(quote);
+    // quoteList.removeChild(quote);
+    // console.log('selected fileter = ' + filteredCat);
 }
 
 showQuoteButton.addEventListener('click', showRandomQuote);
@@ -102,3 +107,20 @@ function importFromJsonFile(event) {
     };
     fileReader.readAsText(event.target.files[0]);
   }
+
+function populateCategories() {
+    const categories = [... new Set(quotes.map(quote => quote.Category))];
+    categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        filter.appendChild(option);
+    });
+    console.log(categories);
+}
+
+populateCategories();
+
+function filterQuotes() {
+    
+}

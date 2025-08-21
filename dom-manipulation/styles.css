@@ -50,3 +50,24 @@ a {
     align-items: center;
     padding: 20px 0;
 }
+
+#selectedQuote {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 2px 4px -1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 2px 4px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 4px -1px rgba(0,0,0,0.75);
+    margin: 10px 0;
+}
+
+#quoteCategory {
+    background-color: salmon;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#quoteText {
+    padding: 5px;
+}

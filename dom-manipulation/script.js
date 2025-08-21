@@ -14,15 +14,12 @@ const exportButton = document.getElementById('exportQuotes');
 
 function showRandomQuote() {
     const quoteList = document.getElementById('quoteList');
-    // const filteredCat = filter.value;
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const selected = quotes[randomIndex];
 
     const quote = document.createElement('li');
     quote.innerHTML = `${selected.quoteText} - ${selected.Category}`;
     quoteList.appendChild(quote);
-    // quoteList.removeChild(quote);
-    // console.log('selected fileter = ' + filteredCat);
 }
 
 showQuoteButton.addEventListener('click', showRandomQuote);
@@ -106,7 +103,7 @@ function importFromJsonFile(event) {
         alert('Quotes imported successfully!');
     };
     fileReader.readAsText(event.target.files[0]);
-  }
+}
 
 function populateCategories() {
     const categories = [... new Set(quotes.map(quote => quote.Category))];
@@ -122,5 +119,39 @@ function populateCategories() {
 populateCategories();
 
 function filterQuotes() {
+    const displayQuotes = document.getElementById('quoteDisplay')
+    const selectedCategory = filter.value;
+
+    displayQuotes.innerHTML = '';
+
     
-}
+    const filteredQuotes = quotes.filter((quote) => {
+        if (selectedCategory === 'all')
+            {
+                return true;
+            } else {
+                return quote.Category === selectedCategory;
+            }
+        })
+        
+        console.log('Filtered quotes', filteredQuotes);
+        
+        filteredQuotes.forEach(fquote => {
+            const selectedQuotes = document.createElement('div');
+            const quoteText = document.createElement('p');
+            const quoteCategory = document.createElement('p');
+            
+            selectedQuotes.id = 'selectedQuote'
+            quoteText.id = 'quoteText';
+            quoteCategory.id = 'quoteCategory';
+
+            quoteText.textContent = fquote.quoteText;
+            quoteCategory.textContent = fquote.Category;
+
+            selectedQuotes.appendChild(quoteText);
+            selectedQuotes.appendChild(quoteCategory);
+        
+            displayQuotes.appendChild(selectedQuotes);
+    })
+
+};

@@ -184,3 +184,25 @@ async function fetchQuotesFromServer() {
 
     alert('Quotes fetched from JSONPlaceholder!');
 }
+
+async function postQuote(quote) {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(quote)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Quote synced:', data);
+    return data;
+  } catch (error) {
+    console.error('Failed to sync quote:', error);
+  }
+}

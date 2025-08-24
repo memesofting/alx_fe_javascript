@@ -210,4 +210,5 @@ async function postQuote(quote) {
 
 function syncQuotes() {
     setInterval(fetchQuotesFromServer, 60000);
+    alert("Quotes synced with server");
 }

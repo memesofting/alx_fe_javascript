@@ -166,6 +166,7 @@ async function fetchQuotesFromServer() {
 
     //simulate quotes with post title and body
     const mockQuotes = data.slice(0, 10).map(post => ({
+        id: post.id + 1000,
         quoteText: post.title,
         Category: "mock"
     }));
@@ -205,4 +206,8 @@ async function postQuote(quote) {
   } catch (error) {
     console.error('Failed to sync quote:', error);
   }
+}
+
+function syncQuotes() {
+    setInterval(fetchQuotesFromServer, 60000);
 }

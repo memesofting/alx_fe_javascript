@@ -157,3 +157,30 @@ function filterQuotes() {
     })
 
 };
+
+
+// Simulating quotes fetching from server
+async function fetchQuotesFromServer() {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const data = await response.json();
+
+    //simulate quotes with post title and body
+    const mockQuotes = data.slice(0, 10).map(post => ({
+        quoteText: post.title,
+        Category: "mock"
+    }));
+
+    // Save to localStorage
+    localStorage.setItem('quotes', JSON.stringify(mockQuotes));
+
+    // Display in UI
+    const quoteList = document.getElementById('quoteList');
+    quoteList.innerHTML = '';
+    mockQuotes.forEach(q => {
+        const li = document.createElement('li');
+        li.textContent = `${q.quoteText} - ${q.Category}`;
+        quoteList.appendChild(li);
+    });
+
+    alert('Quotes fetched from JSONPlaceholder!');
+}
